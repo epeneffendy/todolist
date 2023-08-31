@@ -1,25 +1,37 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import Plus from './components/plus';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [arr, setArr] = useState([]);
+
+    function plusButton(index) {
+        const test = [...arr];
+        test[index] = test[index]+1;
+        setArr(test)
+    }
+
+    function minusButton(index) {
+        const test = [...arr];
+        test[index] = test[index]-1;
+        setArr(test)
+    }
+
+    function addPlus() {
+        const test = [...arr, 0];
+        setArr(test)
+    }
+
+    return (
+        <div className="App">
+            {arr.map((x, i) => (
+                <Plus val={x} index={i} onClickPlus={plusButton} onClickMinus={minusButton}/>
+            ))}
+
+            <button onClick={addPlus}>add</button>
+        </div>
+    );
 }
 
 export default App;
